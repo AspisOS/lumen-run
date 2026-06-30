@@ -1,26 +1,26 @@
 # lumen-run
 
-The "Run…" application launcher for **AspisOS**, a capability-based,
+The "Run…" application launcher for **LoricaOS**, a capability-based,
 no-ambient-authority operating system built on the from-scratch
-[Aegis](https://github.com/AspisOS/Aegis) kernel.
+[Aegis](https://github.com/LoricaOS/Aegis) kernel.
 
 lumen-run is a small chromed dialog with a single text field: type an
 application name and it launches the match. It is an external client of the
-[lumen](https://github.com/AspisOS/lumen) compositor, distributed as a
-[herald](https://github.com/AspisOS/AspisOS) package and installed as an `/apps`
+[lumen](https://github.com/LoricaOS/lumen) compositor, distributed as a
+[herald](https://github.com/LoricaOS/LoricaOS) package and installed as an `/apps`
 bundle. Its descriptor's display name is **Run**.
 
-## The AspisOS ecosystem
+## The LoricaOS ecosystem
 
-AspisOS is decomposed into independent repositories; lumen-run is one graphical
+LoricaOS is decomposed into independent repositories; lumen-run is one graphical
 leaf of that tree:
 
 | Repo | Role |
 |------|------|
-| [`AspisOS/Aegis`](https://github.com/AspisOS/Aegis) | The kernel. Provides the capability model and the `AF_UNIX` socket lumen-run uses to talk to the compositor. |
-| [`AspisOS/lumen`](https://github.com/AspisOS/lumen) | The compositor / display server. lumen-run connects to its socket for a window and asks it to launch the chosen app via the invoke protocol. |
-| [`AspisOS/glyph`](https://github.com/AspisOS/glyph) | The GUI toolkit. Supplies the renderer, the theme, the `/apps` bundle registry (`glyph_apps_scan`) that lumen-run matches against, and the client side of lumen's window protocol (`lumen_client.h`). |
-| [`AspisOS/AspisOS`](https://github.com/AspisOS/AspisOS) | The OS: userland, rootfs, ISO/installer, and the herald package manager that installs this `.hpkg`. |
+| [`LoricaOS/Aegis`](https://github.com/LoricaOS/Aegis) | The kernel. Provides the capability model and the `AF_UNIX` socket lumen-run uses to talk to the compositor. |
+| [`LoricaOS/lumen`](https://github.com/LoricaOS/lumen) | The compositor / display server. lumen-run connects to its socket for a window and asks it to launch the chosen app via the invoke protocol. |
+| [`LoricaOS/glyph`](https://github.com/LoricaOS/glyph) | The GUI toolkit. Supplies the renderer, the theme, the `/apps` bundle registry (`glyph_apps_scan`) that lumen-run matches against, and the client side of lumen's window protocol (`lumen_client.h`). |
+| [`LoricaOS/LoricaOS`](https://github.com/LoricaOS/LoricaOS) | The OS: userland, rootfs, ISO/installer, and the herald package manager that installs this `.hpkg`. |
 
 ## What it does
 
@@ -41,7 +41,7 @@ Grounded in `src/main.c`:
 
 ## Capabilities
 
-AspisOS has no ambient authority: a process can do nothing except through
+LoricaOS has no ambient authority: a process can do nothing except through
 capabilities granted at exec time. lumen-run's policy
 (`pkg/etc/aegis/caps.d/run`) is the baseline desktop-app profile:
 
@@ -61,7 +61,7 @@ signature-trusted, installed verbatim by herald.
 
 ## Building
 
-lumen-run fetches a pinned [glyph](https://github.com/AspisOS/glyph) toolkit
+lumen-run fetches a pinned [glyph](https://github.com/LoricaOS/glyph) toolkit
 artifact (the GUI libraries it links) and builds against it, then packs a signed
 herald package.
 
@@ -103,7 +103,7 @@ GLYPH_VERSION   the pinned glyph toolkit version it builds against
 
 `depends=lumen` — lumen-run is a Lumen client and resolves the `/apps` registry
 the compositor manages, so installing it pulls
-[lumen](https://github.com/AspisOS/lumen) (which in turn ships the desktop fonts
+[lumen](https://github.com/LoricaOS/lumen) (which in turn ships the desktop fonts
 every dependent inherits).
 
 ## Status
@@ -111,4 +111,4 @@ every dependent inherits).
 Early-stage and intentionally minimal: a single-field launcher with prefix
 matching and no history, fuzzy ranking, or argument passing. It does one thing —
 turn a typed name into a running app — and is expected to grow (recents,
-multi-result selection) as AspisOS matures.
+multi-result selection) as LoricaOS matures.
